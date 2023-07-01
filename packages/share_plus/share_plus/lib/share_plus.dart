@@ -35,14 +35,16 @@ class Share {
   /// from [MethodChannel].
   static Future<void> share(
     String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) {
+        String? subject,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     assert(text.isNotEmpty);
     return _platform.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+        packageName: packageName
     );
   }
 
@@ -72,11 +74,12 @@ class Share {
   @Deprecated("Use shareXFiles instead.")
   static Future<void> shareFiles(
     List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
+        List<String>? mimeTypes,
+        String? subject,
+        String? text,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));
     return _platform.shareFiles(
@@ -85,6 +88,7 @@ class Share {
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      packageName: packageName,
     );
   }
 

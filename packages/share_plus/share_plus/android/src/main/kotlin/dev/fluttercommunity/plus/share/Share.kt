@@ -55,26 +55,33 @@ internal class Share(
         this.activity = activity
     }
 
-    fun share(text: String, subject: String?, withResult: Boolean) {
+    fun share(text: String, subject: String?, packageName: String?, withResult: Boolean) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
             putExtra(Intent.EXTRA_SUBJECT, subject)
         }
+        if (packageName != null) {
+            shareIntent.setPackage(packageName)
+        }
         // If we dont want the result we use the old 'createChooser'
         val chooserIntent = if (withResult) {
             // Build chooserIntent with broadcast to ShareSuccessManager on success
-            Intent.createChooser(
-                shareIntent,
-                null, // dialog title optional
-                PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    Intent(context, SharePlusPendingIntent::class.java),
-                    PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).intentSender
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                Intent.createChooser(
+                    shareIntent,
+                    null, // dialog title optional
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        Intent(context, SharePlusPendingIntent::class.java),
+                        PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
+                    ).intentSender
+                )
+            } else {
+                Intent.createChooser(shareIntent, null /* dialog title optional */)
+            }
         } else {
             Intent.createChooser(shareIntent, null /* dialog title optional */)
         }
@@ -87,6 +94,7 @@ internal class Share(
         mimeTypes: List<String>?,
         text: String?,
         subject: String?,
+        defaultPackage: String?,
         withResult: Boolean
     ) {
         clearShareCacheFolder()
@@ -94,7 +102,7 @@ internal class Share(
         val shareIntent = Intent()
         when {
             (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
-                share(text, subject, withResult)
+                share(text, subject, defaultPackage, withResult)
                 return
             }
             fileUris.size == 1 -> {
@@ -109,6 +117,7 @@ internal class Share(
                     putExtra(Intent.EXTRA_STREAM, fileUris.first())
                 }
             }
+
             else -> {
                 shareIntent.apply {
                     action = Intent.ACTION_SEND_MULTIPLE
@@ -117,22 +126,29 @@ internal class Share(
                 }
             }
         }
+        if (defaultPackage != null) {
+            shareIntent.setPackage(defaultPackage)
+        }
         if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text)
         if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         // If we dont want the result we use the old 'createChooser'
         val chooserIntent = if (withResult) {
             // Build chooserIntent with broadcast to ShareSuccessManager on success
-            Intent.createChooser(
-                shareIntent,
-                null, // dialog title optional
-                PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    Intent(context, SharePlusPendingIntent::class.java),
-                    PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
-                ).intentSender
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                Intent.createChooser(
+                    shareIntent,
+                    null, // dialog title optional
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        Intent(context, SharePlusPendingIntent::class.java),
+                        PendingIntent.FLAG_UPDATE_CURRENT or immutabilityIntentFlags
+                    ).intentSender
+                )
+            } else {
+                Intent.createChooser(shareIntent, null /* dialog title optional */)
+            }
         } else {
             Intent.createChooser(shareIntent, null /* dialog title optional */)
         }

@@ -34,13 +34,15 @@ class SharePlatform extends PlatformInterface {
   /// Share text.
   Future<void> share(
     String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) {
+        String? subject,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     return _instance.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      packageName: packageName,
     );
   }
 
@@ -48,17 +50,19 @@ class SharePlatform extends PlatformInterface {
   @Deprecated("Use shareXFiles instead.")
   Future<void> shareFiles(
     List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
+        List<String>? mimeTypes,
+        String? subject,
+        String? text,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     return _instance.shareFiles(
       paths,
       mimeTypes: mimeTypes,
       subject: subject,
       text: text,
       sharePositionOrigin: sharePositionOrigin,
+      packageName: packageName,
     );
   }
 

@@ -27,9 +27,10 @@ class SharePlusWindowsPlugin extends SharePlatform {
   @override
   Future<void> share(
     String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
+        String? subject,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,
       'body': text,
@@ -57,11 +58,12 @@ class SharePlusWindowsPlugin extends SharePlatform {
   @override
   Future<void> shareFiles(
     List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
+        List<String>? mimeTypes,
+        String? subject,
+        String? text,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     throw UnimplementedError(
       'shareFiles() is only available for Windows versions higher than 10.0.${VersionHelper.kWindows10RS5BuildNumber}.',
     );

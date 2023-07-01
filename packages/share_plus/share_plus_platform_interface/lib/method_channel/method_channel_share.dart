@@ -27,13 +27,15 @@ class MethodChannelShare extends SharePlatform {
   @override
   Future<void> share(
     String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) {
+        String? subject,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     assert(text.isNotEmpty);
     final params = <String, dynamic>{
       'text': text,
       'subject': subject,
+      'packageName': packageName
     };
 
     if (sharePositionOrigin != null) {
@@ -50,11 +52,12 @@ class MethodChannelShare extends SharePlatform {
   @override
   Future<void> shareFiles(
     List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
+        List<String>? mimeTypes,
+        String? subject,
+        String? text,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     assert(paths.isNotEmpty);
     assert(paths.every((element) => element.isNotEmpty));
     final params = <String, dynamic>{
@@ -65,6 +68,7 @@ class MethodChannelShare extends SharePlatform {
 
     if (subject != null) params['subject'] = subject;
     if (text != null) params['text'] = text;
+    if (packageName != null) params['package'] = packageName;
 
     if (sharePositionOrigin != null) {
       params['originX'] = sharePositionOrigin.left;

@@ -29,9 +29,10 @@ class SharePlusWebPlugin extends SharePlatform {
   @override
   Future<void> share(
     String text, {
-    String? subject,
-    Rect? sharePositionOrigin,
-  }) async {
+        String? subject,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) async {
     try {
       await _navigator.share({'title': subject, 'text': text});
     } on NoSuchMethodError catch (_) {
@@ -64,11 +65,12 @@ class SharePlusWebPlugin extends SharePlatform {
   @override
   Future<void> shareFiles(
     List<String> paths, {
-    List<String>? mimeTypes,
-    String? subject,
-    String? text,
-    Rect? sharePositionOrigin,
-  }) {
+        List<String>? mimeTypes,
+        String? subject,
+        String? text,
+        Rect? sharePositionOrigin,
+        String? packageName,
+      }) {
     final files = <XFile>[];
     for (var i = 0; i < paths.length; i++) {
       files.add(XFile(paths[i], mimeType: mimeTypes?[i]));
