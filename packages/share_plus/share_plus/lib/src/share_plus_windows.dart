@@ -40,6 +40,7 @@ class SharePlusWindowsPlugin extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,

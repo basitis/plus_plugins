@@ -73,6 +73,7 @@ class SharePlusWebPlugin extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     final ShareData data;
     if (subject != null && subject.isNotEmpty) {
