@@ -55,7 +55,7 @@ internal class Share(
         this.activity = activity
     }
 
-    fun share(text: String, subject: String?, withResult: Boolean) {
+    fun share(text: String, subject: String?, packageName: String?, withResult: Boolean) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
@@ -63,6 +63,9 @@ internal class Share(
             if (subject != null) {
                 putExtra(Intent.EXTRA_SUBJECT, subject)
             }
+        }
+        if (packageName != null) {
+            shareIntent.setPackage(packageName)
         }
         // If we dont want the result we use the old 'createChooser'
         val chooserIntent =
@@ -90,6 +93,7 @@ internal class Share(
         mimeTypes: List<String>?,
         text: String?,
         subject: String?,
+        defaultPackage: String?,
         withResult: Boolean
     ) {
         clearShareCacheFolder()
@@ -97,7 +101,7 @@ internal class Share(
         val shareIntent = Intent()
         when {
             (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
-                share(text, subject, withResult)
+                share(text, subject, defaultPackage, withResult)
                 return
             }
 
@@ -121,6 +125,9 @@ internal class Share(
                     putParcelableArrayListExtra(Intent.EXTRA_STREAM, fileUris)
                 }
             }
+        }
+        if (defaultPackage != null) {
+            shareIntent.setPackage(defaultPackage)
         }
         if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text)
         if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)

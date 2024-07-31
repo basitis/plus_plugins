@@ -126,6 +126,7 @@ class Share {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+        String? packageName,
   }) async {
     assert(files.isNotEmpty);
     return _platform.shareXFiles(
@@ -134,6 +135,7 @@ class Share {
       text: text,
       sharePositionOrigin: sharePositionOrigin,
       fileNameOverrides: fileNameOverrides,
+        packageName: packageName
     );
   }
 }
