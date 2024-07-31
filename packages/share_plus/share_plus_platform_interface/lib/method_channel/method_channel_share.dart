@@ -49,11 +49,13 @@ class MethodChannelShare extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     assert(text.isNotEmpty);
     final params = <String, dynamic>{
       'text': text,
       'subject': subject,
+      'packageName': packageName
     };
 
     if (sharePositionOrigin != null) {

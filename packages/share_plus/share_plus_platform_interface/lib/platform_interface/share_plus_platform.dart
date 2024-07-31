@@ -47,11 +47,13 @@ class SharePlatform extends PlatformInterface {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     return await _instance.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      packageName: packageName,
     );
   }
 
