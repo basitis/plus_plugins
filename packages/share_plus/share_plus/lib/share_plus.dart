@@ -86,12 +86,14 @@ class Share {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     assert(text.isNotEmpty);
     return _platform.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      packageName: packageName,
     );
   }
 
@@ -129,14 +131,14 @@ class Share {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+    String? packageName,
   }) async {
     assert(files.isNotEmpty);
-    return _platform.shareXFiles(
-      files,
-      subject: subject,
-      text: text,
-      sharePositionOrigin: sharePositionOrigin,
-      fileNameOverrides: fileNameOverrides,
-    );
+    return _platform.shareXFiles(files,
+        subject: subject,
+        text: text,
+        sharePositionOrigin: sharePositionOrigin,
+        fileNameOverrides: fileNameOverrides,
+        packageName: packageName);
   }
 }

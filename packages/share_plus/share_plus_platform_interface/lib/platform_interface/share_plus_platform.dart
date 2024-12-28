@@ -47,11 +47,13 @@ class SharePlatform extends PlatformInterface {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     return await _instance.share(
       text,
       subject: subject,
       sharePositionOrigin: sharePositionOrigin,
+      packageName: packageName,
     );
   }
 
@@ -62,6 +64,7 @@ class SharePlatform extends PlatformInterface {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+    String? packageName,
   }) async {
     return _instance.shareXFiles(
       files,
@@ -69,6 +72,7 @@ class SharePlatform extends PlatformInterface {
       text: text,
       sharePositionOrigin: sharePositionOrigin,
       fileNameOverrides: fileNameOverrides,
+      packageName: packageName,
     );
   }
 }
