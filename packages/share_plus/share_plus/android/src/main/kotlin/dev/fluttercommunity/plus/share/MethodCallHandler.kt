@@ -40,8 +40,7 @@ internal class MethodCallHandler(
                         call.argument<Any>("subject") as String?,
                         call.argument<Any>("packageName") as String?,
                         isWithResult,
-
-                        )
+                    )
                     success(isWithResult, result)
                 }
 
