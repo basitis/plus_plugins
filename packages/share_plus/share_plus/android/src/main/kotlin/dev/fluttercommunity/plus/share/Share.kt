@@ -55,20 +55,19 @@ internal class Share(
         this.activity = activity
     }
 
-    fun share(text: String, subject: String?, packageName: String?, withResult: Boolean) {
+    fun share(text: String, subject: String?, withResult: Boolean) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
             type = "text/plain"
             putExtra(Intent.EXTRA_TEXT, text)
-            putExtra(Intent.EXTRA_SUBJECT, subject)
-        }
-        if (packageName != null) {
-            shareIntent.setPackage(packageName)
+            if (subject != null) {
+                putExtra(Intent.EXTRA_SUBJECT, subject)
+            }
         }
         // If we dont want the result we use the old 'createChooser'
-        val chooserIntent = if (withResult) {
-            // Build chooserIntent with broadcast to ShareSuccessManager on success
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+        val chooserIntent =
+            if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                // Build chooserIntent with broadcast to ShareSuccessManager on success
                 Intent.createChooser(
                     shareIntent,
                     null, // dialog title optional
@@ -82,9 +81,6 @@ internal class Share(
             } else {
                 Intent.createChooser(shareIntent, null /* dialog title optional */)
             }
-        } else {
-            Intent.createChooser(shareIntent, null /* dialog title optional */)
-        }
         startActivity(chooserIntent, withResult)
     }
 
@@ -94,7 +90,6 @@ internal class Share(
         mimeTypes: List<String>?,
         text: String?,
         subject: String?,
-        defaultPackage: String?,
         withResult: Boolean
     ) {
         clearShareCacheFolder()
@@ -102,9 +97,10 @@ internal class Share(
         val shareIntent = Intent()
         when {
             (fileUris.isEmpty() && !text.isNullOrBlank()) -> {
-                share(text, subject, defaultPackage, withResult)
+                share(text, subject, withResult)
                 return
             }
+
             fileUris.size == 1 -> {
                 val mimeType = if (!mimeTypes.isNullOrEmpty()) {
                     mimeTypes.first()
@@ -126,16 +122,13 @@ internal class Share(
                 }
             }
         }
-        if (defaultPackage != null) {
-            shareIntent.setPackage(defaultPackage)
-        }
         if (text != null) shareIntent.putExtra(Intent.EXTRA_TEXT, text)
         if (subject != null) shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         // If we dont want the result we use the old 'createChooser'
-        val chooserIntent = if (withResult) {
-            // Build chooserIntent with broadcast to ShareSuccessManager on success
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+        val chooserIntent =
+            if (withResult && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+                // Build chooserIntent with broadcast to ShareSuccessManager on success
                 Intent.createChooser(
                     shareIntent,
                     null, // dialog title optional
@@ -149,9 +142,6 @@ internal class Share(
             } else {
                 Intent.createChooser(shareIntent, null /* dialog title optional */)
             }
-        } else {
-            Intent.createChooser(shareIntent, null /* dialog title optional */)
-        }
         val resInfoList = getContext().packageManager.queryIntentActivities(
             chooserIntent, PackageManager.MATCH_DEFAULT_ONLY
         )
@@ -200,27 +190,27 @@ internal class Share(
         return uris
     }
 
-  /**
-   * Reduces provided MIME types to a common one to provide [Intent] with a correct type to share
-   * multiple files
-   */
-  private fun reduceMimeTypes(mimeTypes: List<String>?): String {
-    if (mimeTypes?.isEmpty() ?: true) return "*/*"
-    if (mimeTypes!!.size == 1) return mimeTypes.first()
+    /**
+     * Reduces provided MIME types to a common one to provide [Intent] with a correct type to share
+     * multiple files
+     */
+    private fun reduceMimeTypes(mimeTypes: List<String>?): String {
+        if (mimeTypes?.isEmpty() != false) return "*/*"
+        if (mimeTypes.size == 1) return mimeTypes.first()
 
-    var commonMimeType = mimeTypes.first()
-    for (i in 1..mimeTypes.lastIndex) {
-      if (commonMimeType != mimeTypes[i]) {
-        if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(mimeTypes[i])) {
-          commonMimeType = getMimeTypeBase(mimeTypes[i]) + "/*"
-        } else {
-          commonMimeType = "*/*"
-          break
+        var commonMimeType = mimeTypes.first()
+        for (i in 1..mimeTypes.lastIndex) {
+            if (commonMimeType != mimeTypes[i]) {
+                if (getMimeTypeBase(commonMimeType) == getMimeTypeBase(mimeTypes[i])) {
+                    commonMimeType = getMimeTypeBase(mimeTypes[i]) + "/*"
+                } else {
+                    commonMimeType = "*/*"
+                    break
+                }
+            }
         }
-      }
+        return commonMimeType
     }
-    return commonMimeType
-  }
 
     /**
      * Returns the first part of provided MIME type, which comes before '/' symbol

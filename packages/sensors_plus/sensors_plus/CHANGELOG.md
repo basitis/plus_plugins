@@ -1,3 +1,85 @@
+## 6.1.1
+
+ - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))
+
+## 6.1.0
+
+ - **FEAT**(sensors_plus): Add Swift Package Manager support ([#3170](https://github.com/fluttercommunity/plus_plugins/issues/3170)). ([3a0798c4](https://github.com/fluttercommunity/plus_plugins/commit/3a0798c4ef747b7d66ab74af3d5bea6fa3a1aa26))
+
+## 6.0.1
+
+ - **DOCS**(sensors_plus): Update plugin requirements in README ([#3164](https://github.com/fluttercommunity/plus_plugins/issues/3164)). ([82d95db4](https://github.com/fluttercommunity/plus_plugins/commit/82d95db42dbe9bad821fbcd033ea317cf6771691))
+
+## 6.0.0
+
+> Note: This release has breaking changes. Starting with this release on iOS it is required to add `NSMotionUsageDescription` entry in the Info.plist file. More info available in the README file.
+
+ - **BREAKING** **FEAT**(sensors_plus): Add support for platform timestamp in event ([#2506](https://github.com/fluttercommunity/plus_plugins/issues/2506)). ([8b3df176](https://github.com/fluttercommunity/plus_plugins/commit/8b3df17650769b913f64db48d2f56ab7a9a15616))
+ - **BREAKING** **FEAT**(sensors_plus): Add barometer support for all platforms ([#3079](https://github.com/fluttercommunity/plus_plugins/issues/3079)). ([5fa797d0](https://github.com/fluttercommunity/plus_plugins/commit/5fa797d033606106a762828c38c59597fe0e9253))
+ - **REFACTOR**(all): Remove website files, configs, mentions ([#3018](https://github.com/fluttercommunity/plus_plugins/issues/3018)). ([ecc57146](https://github.com/fluttercommunity/plus_plugins/commit/ecc57146aa8c6b1c9c332169d3cc2205bc4a700f))
+ - **FIX**(all): changed homepage url in pubspec.yaml ([#3099](https://github.com/fluttercommunity/plus_plugins/issues/3099)). ([66613656](https://github.com/fluttercommunity/plus_plugins/commit/66613656a85c176ba2ad337e4d4943d1f4171129))
+
+## 5.0.1
+
+ - **REFACTOR**(sensors_plus): Migrate Android example to use the new plugins declaration ([#2743](https://github.com/fluttercommunity/plus_plugins/issues/2743)). ([e884a9e9](https://github.com/fluttercommunity/plus_plugins/commit/e884a9e9979f8bda400fe063e73fc6f9a91dbfce))
+ - **FIX**(sensors_plus): WASM-compatible conditional imports ([#2824](https://github.com/fluttercommunity/plus_plugins/issues/2824)). ([823a7d78](https://github.com/fluttercommunity/plus_plugins/commit/823a7d785c7bff4823e10d044291396e97ec4a3c))
+
+## 5.0.0
+
+> Note: This release has breaking changes.
+
+In this release plugin migrated migrated from dart:html to js_interop, meaning that it now supports WASM!
+
+Plugin now requires the following:
+- Flutter >=3.19.0
+- Dart >=3.3.0
+- compileSDK 34 for Android part
+- Java 17 for Android part
+- Gradle 8.4 for Android part
+
+ - **BREAKING** **FEAT**(sensors_plus): Migrate to dart:js_interop ([#2697](https://github.com/fluttercommunity/plus_plugins/issues/2697)). ([48edfa20](https://github.com/fluttercommunity/plus_plugins/commit/48edfa20558530cd08a55a880a42f3d080ccbe94))
+ - **BREAKING** **BUILD**(sensors_plus): Target Java 17 on Android ([#2729](https://github.com/fluttercommunity/plus_plugins/issues/2729)). ([7a83e355](https://github.com/fluttercommunity/plus_plugins/commit/7a83e3558db7c8d4d217a485ef9a5b0c1ed7039a))
+ - **BREAKING** **BUILD**(sensors_plus): Update to target and compile SDK 34 ([#2708](https://github.com/fluttercommunity/plus_plugins/pull/2708)). ([f110dfd](https://github.com/fluttercommunity/plus_plugins/commit/f110dfdd87f9de4346e8f9f765c0f05e0a02d1fa))
+ - **FIX**(sensors_plus): Add try-catch for release builds ([#2718](https://github.com/fluttercommunity/plus_plugins/issues/2718)). ([c37acd67](https://github.com/fluttercommunity/plus_plugins/commit/c37acd671801e6ebb1249b2ce1939799ea27b6fb))
+ - **FIX**(sensors_plus): Add iOS Privacy Info ([#2585](https://github.com/fluttercommunity/plus_plugins/issues/2585)). ([9b7198a9](https://github.com/fluttercommunity/plus_plugins/commit/9b7198a91ed2778a1399a9152441bea7fa75bf6e))
+ - **FEAT**(sensors_plus): Update min iOS target to 12 ([#2661](https://github.com/fluttercommunity/plus_plugins/issues/2661)). ([ca5d660f](https://github.com/fluttercommunity/plus_plugins/commit/ca5d660f8cb7350f7c364b9c91a377c21f7dd0a1))
+
+## 4.0.2
+
+ - **FIX**(sensors_plus): Close magnetometerStreamController on web ([#2456](https://github.com/fluttercommunity/plus_plugins/issues/2456)). ([64200667](https://github.com/fluttercommunity/plus_plugins/commit/64200667e94ec6eedeb3f8224f355d113dee3ac8))
+
+## 4.0.1+1
+
+ - **DOCS**(sensors_plus): Update README to mention how sampling rate works on Android ([#2452](https://github.com/fluttercommunity/plus_plugins/issues/2452)). ([4d8ce2f8](https://github.com/fluttercommunity/plus_plugins/commit/4d8ce2f8e9eb09e8ae6e5616599a593ff182ea24))
+
+## 4.0.1
+
+> Note: This release has breaking changes.
+
+ - **BREAKING** **FIX**(sensors_plus): Use magnetometer instead of deviceMotion on iOS ([#2250](https://github.com/fluttercommunity/plus_plugins/issues/2250)). ([d1751024](https://github.com/fluttercommunity/plus_plugins/commit/d175102404f5a614360dc52380e95aa0a6308481))
+ - **FEAT**(sensors_plus): Configurable sample rate on Android and iOS ([#2248](https://github.com/fluttercommunity/plus_plugins/issues/2248)). ([82ffe46c](https://github.com/fluttercommunity/plus_plugins/commit/82ffe46c6ff02a7fcaad35c74c872e1ceb37621c))
+ - **DOCS**(sensors_plus): Add info about sensors sampling rate configuration ([#2393](https://github.com/fluttercommunity/plus_plugins/issues/2393)). ([35900ead](https://github.com/fluttercommunity/plus_plugins/commit/35900eadd91e88d5eb2d28eeb32048edbb1057c9))
+
+## 4.0.0
+
+This release was retracted due to [#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251).
+
+## 3.1.0
+
+> Info: This release is a replacement for release 4.0.0, which was retracted due to issue ([#2251](https://github.com/fluttercommunity/plus_plugins/issues/2251)). As breaking change was reverted the major release was also reverted in favor of this one.
+
+ - **FIX**(sensors_plus): Change Kotlin version from 1.9.10 to 1.7.22 ([#2253](https://github.com/fluttercommunity/plus_plugins/issues/2253)). ([10fade07](https://github.com/fluttercommunity/plus_plugins/commit/10fade073928e2676e6383e0697ba0d123ab4a87))
+ - **FIX**(sensors_plus): Close stream controllers onCancel on web ([#2249](https://github.com/fluttercommunity/plus_plugins/issues/2249)). ([476e17bc](https://github.com/fluttercommunity/plus_plugins/commit/476e17bc7e404862dafc5eb57c57908181f3f52f))
+ - **FIX**(sensors_plus): Revert bump compileSDK to 34 ([#2233](https://github.com/fluttercommunity/plus_plugins/issues/2233)). ([8574422a](https://github.com/fluttercommunity/plus_plugins/commit/8574422aad07955e6a2bad7863f557c7ae0a1d57))
+ - **FIX**(sensors_plus): Error handling of native crashes (e.g. missing hardware) ([#1987](https://github.com/fluttercommunity/plus_plugins/issues/1987)). ([ee942290](https://github.com/fluttercommunity/plus_plugins/commit/ee9422901bc16a5e6e183f918646865336646955))
+ - **FEAT**(sensors_plus): Remove deprecated VALID_ARCHS iOS property ([#2027](https://github.com/fluttercommunity/plus_plugins/issues/2027)). ([8ba4197e](https://github.com/fluttercommunity/plus_plugins/commit/8ba4197ee4258f56984e69d4c1196c234ed3dce0))
+
+## 3.0.3
+
+ - **FIX**(sensors_plus): fixed the deprecated syntax ([#1904](https://github.com/fluttercommunity/plus_plugins/issues/1904)). ([57f06352](https://github.com/fluttercommunity/plus_plugins/commit/57f06352ccf0c6aec0f483cb595764826623e311))
+ - **FIX**(sensors_plus): Regenerate iOS example app ([#1870](https://github.com/fluttercommunity/plus_plugins/issues/1870)). ([5046f542](https://github.com/fluttercommunity/plus_plugins/commit/5046f542433726534a2fb1c06c85f8bfc5f41398))
+ - **DOCS**(all): Fix example links on pub.dev ([#1863](https://github.com/fluttercommunity/plus_plugins/issues/1863)). ([d726035a](https://github.com/fluttercommunity/plus_plugins/commit/d726035ad7631d5a1397d0a2e5df23dc7e30a4f7))
+
 ## 3.0.2
 
  - **FIX**(sensors_plus): Fix issues with emitting multiple sensors events on iOS ([#1859](https://github.com/fluttercommunity/plus_plugins/issues/1859)). ([d33b20fa](https://github.com/fluttercommunity/plus_plugins/commit/d33b20fa7c76368dbcc12064df8469c301658b53))

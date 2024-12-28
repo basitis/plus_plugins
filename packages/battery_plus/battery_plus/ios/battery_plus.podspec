@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.version          = '1.0.0'
   s.summary          = 'Flutter plugin for accessing information about the battery_plus.'
   s.description      = <<-DESC
-A Flutter plugin to access various information about the battery_plus of the device the app is running on.
+A Flutter plugin to access various information about the battery of the device the app is running on.
 Downloaded by pub (not CocoaPods).
                        DESC
   s.homepage         = 'https://plus.fluttercommunity.dev/'
@@ -14,10 +14,11 @@ Downloaded by pub (not CocoaPods).
   s.author           = { 'Flutter Community Team' => 'authors@fluttercommunity.dev' }
   s.source           = { :http => 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/battery_plus' }
   s.documentation_url = 'https://pub.dev/packages/battery_plus'
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'battery_plus/Sources/battery_plus/**/*.{h,m}'
+  s.public_header_files = 'battery_plus/Sources/battery_plus/include/**/*.h'
   s.dependency 'Flutter'
 
-  s.platform = :ios, '11.0'
-  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
+  s.platform = :ios, '12.0'
+  s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES' }
+  s.resource_bundles = {'battery_plus_privacy' => ['battery_plus/Sources/battery_plus/PrivacyInfo.xcprivacy']}
 end

@@ -18,14 +18,24 @@ class SharePlusLinuxPlugin extends SharePlatform {
     SharePlatform.instance = SharePlusLinuxPlugin(UrlLauncherLinux());
   }
 
+  @override
+  Future<ShareResult> shareUri(
+    Uri uri, {
+    String? subject,
+    String? text,
+    Rect? sharePositionOrigin,
+  }) async {
+    throw UnimplementedError(
+        'shareUri() has not been implemented on Linux. Use share().');
+  }
+
   /// Share text.
   @override
-  Future<void> share(
+  Future<ShareResult> share(
     String text, {
-        String? subject,
-        Rect? sharePositionOrigin,
-        String? packageName,
-      }) async {
+    String? subject,
+    Rect? sharePositionOrigin,
+  }) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,
       'body': text,
@@ -47,19 +57,8 @@ class SharePlusLinuxPlugin extends SharePlatform {
     if (!launchResult) {
       throw Exception('Failed to launch $uri');
     }
-  }
 
-  /// Share files.
-  @override
-  Future<void> shareFiles(
-    List<String> paths, {
-        List<String>? mimeTypes,
-        String? subject,
-        String? text,
-        Rect? sharePositionOrigin,
-        String? packageName,
-      }) {
-    throw UnimplementedError('shareFiles() has not been implemented on Linux.');
+    return ShareResult.unavailable;
   }
 
   /// Share [XFile] objects with Result.
@@ -69,6 +68,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
     String? subject,
     String? text,
     Rect? sharePositionOrigin,
+    List<String>? fileNameOverrides,
   }) {
     throw UnimplementedError(
       'shareXFiles() has not been implemented on Linux.',

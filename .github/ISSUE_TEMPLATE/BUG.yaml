@@ -12,6 +12,8 @@ body:
         or consider asking a question on Stack Overflow:
         * https://plus.fluttercommunity.dev/docs/overview
 
+        If you have a **compilation issue**, please use the [Compile Issue Template](https://github.com/fluttercommunity/plus_plugins/issues/new?assignees=&labels=compile%2Ctriage&projects=&template=COMPILATION.yaml&title=%5BCompile%5D%3A+).
+
         If you have found a bug or if our documentation doesn't have an answer
         to what you're looking for, then fill our the template below.
      
@@ -103,6 +105,8 @@ body:
       label: Checklist before submitting a bug
       description: Please verify all the following items before submitting a bug. All options must be selected.
       options:
+        - label: I searched issues in this repository and couldn't find such bug/problem
+          required: true
         - label: I Google'd a solution and I couldn't find it
           required: true
         - label: I searched on StackOverflow for a solution and I couldn't find it

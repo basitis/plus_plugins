@@ -28,12 +28,12 @@ Ideally an expert in that platform will have to review the change to make sure i
 
 ### 🔴 Cannot be accepted
 
-- New features covering only one platform 
- 
-New features should cover at least the mobile platforms (Android and iOS) to be considered, 
+- New features covering only one platform
+
+New features should cover at least the mobile platforms (Android and iOS) to be considered,
 and a plan for the rest must be provided.
 
-- New plugins 
+- New plugins
 
 We don't have the capacity to accept new plugins.
 
@@ -123,19 +123,35 @@ flutter test
 E2e tests are those which directly communicate with Flutter, whose results cannot be mocked. **These tests run directly from
 an example application.**
 
-To run e2e tests, run the `flutter drive` command from the plugins main `example` directory, targeting the
-entry e2e test file.
+To run e2e tests, run the `flutter test` command from the plugins main `example` directory, and provide the path to the
+e2e test file. For example, to run the `sensors_plus` e2e tests:
+
+#### Mobile
 
 ```bash
 cd packages/sensors_plus/sensors_plus/example
-flutter drive --target=./test_driver/sensors_plus_e2e.dart
+flutter test integration_test/sensors_plus_test.dart
 ```
 
-To run tests against web environments, run the command as a release build:
+#### Web
+
+To run tests against web environments, you will need to have Chrome and ChromeDriver installed and use the `flutter drive` command.
+
+First start ChromeDriver on port 4444:
 
 ```bash
-cd packages/sensors_plus/sensors_plus/example
-flutter drive --target=./test_driver/sensors_plus_e2e.dart --release -d chrome
+chromedriver --port=4444
+```
+
+Then go to the `example` directory of the plugin you want to test and run the `flutter drive` command
+with the specific driver and `*_web_test.dart` target. For example, to run the `package_info_plus` web tests:
+
+```bash
+cd packages/package_info_plus/package_info_plus/example
+flutter drive \
+  --driver ./integration_test/driver.dart \
+  --target ./integration_test/package_info_plus_web_test.dart \
+  -d chrome
 ```
 
 ### Using Melos
@@ -161,6 +177,9 @@ Please peruse the
 [design principles](https://flutter.dev/design-principles/) before
 working on anything non-trivial. These guidelines are intended to
 keep the code consistent and avoid common pitfalls.
+
+**Important:** When modifying multiple packages, **create a different branch and pull request per package.**
+This facilitates maintenance, the review process, and generating changelogs.
 
 ### 5.1 Getting started
 
@@ -205,7 +224,7 @@ To send us a pull request:
 Please make sure all your check-ins have detailed commit messages explaining the patch.
 
 When naming the title of your pull request, please follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/)
-guide. For example, for a fix to the `sensor_plus` plugin:
+guide, and include the package name in parenthesis. For example, for a fix to the `sensor_plus` plugin:
 
 `fix(sensor_plus): fixed a bug!`
 
@@ -265,12 +284,11 @@ Some things to keep in mind before publishing the release:
 1. Switch to `main` branch locally.
 2. Run `git pull origin main`.
 3. Run `git pull --tags` to make sure all tags are fetched.
-4. Create new branch with the signature `release/[year]-[month]-[day]`.
-5. Run `melos version --no-git-tag-version` to automatically version packages and update Changelogs.
-6. Run `melos publish` to dry run and confirm all packages are publishable.
-7. After successful dry run, commit all changes with the signature "chore(release): prepare for release".
+4. Run `melos version --no-git-commit-version` to automatically version packages and update Changelogs.
+5. Run `melos publish` to dry run and confirm all packages are publishable.
+6. After successful dry run, create and checkout to a new branch named `release/[year]-[month]-[day]`.
+7. Commit all changes with a commit message `chore(release): prepare for release`.
 8. Run `git push origin [RELEASE BRANCH NAME]` & open pull request for review on GitHub.
-9. After successful review and merge of the pull request, switch to main branch locally, & run `git pull origin main`.
-10. Run `melos publish --no-dry-run --git-tag-version` to now publish to Pub.dev.
+9. After successful review and merge of the pull request, switch to `main` branch locally, & run `git pull origin main`.
+10. Run `melos publish --no-dry-run --git-tag-version` to now publish to pub.dev.
 11. Run `git push --tags` to push tags to repository.
-
