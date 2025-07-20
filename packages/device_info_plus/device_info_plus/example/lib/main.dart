@@ -101,9 +101,13 @@ class _MyAppState extends State<MyApp> {
       'tags': build.tags,
       'type': build.type,
       'isPhysicalDevice': build.isPhysicalDevice,
+      'freeDiskSize': build.freeDiskSize,
+      'totalDiskSize': build.totalDiskSize,
       'systemFeatures': build.systemFeatures,
       'serialNumber': build.serialNumber,
       'isLowRamDevice': build.isLowRamDevice,
+      'physicalRamSize': build.physicalRamSize,
+      'availableRamSize': build.availableRamSize,
     };
   }
 
@@ -118,6 +122,10 @@ class _MyAppState extends State<MyApp> {
       'identifierForVendor': data.identifierForVendor,
       'isPhysicalDevice': data.isPhysicalDevice,
       'isiOSAppOnMac': data.isiOSAppOnMac,
+      'freeDiskSize': data.freeDiskSize,
+      'totalDiskSize': data.totalDiskSize,
+      'physicalRamSize': data.physicalRamSize,
+      'availableRamSize': data.availableRamSize,
       'utsname.sysname:': data.utsname.sysname,
       'utsname.nodename:': data.utsname.nodename,
       'utsname.release:': data.utsname.release,

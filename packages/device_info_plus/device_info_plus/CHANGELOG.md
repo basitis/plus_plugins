@@ -1,3 +1,29 @@
+## 11.5.0
+
+ - **FIX**(device_info_plus): Specify correct Dart and Flutter version requirements ([#3597](https://github.com/fluttercommunity/plus_plugins/issues/3597)). ([6ebc0ead](https://github.com/fluttercommunity/plus_plugins/commit/6ebc0ead68df477f06c6d4738a69a9e56223cf47))
+ - **FEAT**(device_info_plus): Add identifier for iPhone 16e ([#3596](https://github.com/fluttercommunity/plus_plugins/issues/3596)). ([e1152bb8](https://github.com/fluttercommunity/plus_plugins/commit/e1152bb87d702ff86aaf29e9b7362d8dfd3247e0))
+ - **FEAT**(device_info_plus): Add storage information ([#3536](https://github.com/fluttercommunity/plus_plugins/issues/3536)). ([fefe6ce7](https://github.com/fluttercommunity/plus_plugins/commit/fefe6ce7a04c01c39f0cf0ecd0855bce1d701883))
+
+## 11.4.0
+
+ - **FEAT**(device_info_plus): add ram information ([#3535](https://github.com/fluttercommunity/plus_plugins/issues/3535)). ([160a0182](https://github.com/fluttercommunity/plus_plugins/commit/160a01824cb8a245aec52eb3f5a1fa804ef791eb))
+ - **FEAT**(device_info_plus): allow to mock device info ([#3525](https://github.com/fluttercommunity/plus_plugins/issues/3525)). ([f78f32c4](https://github.com/fluttercommunity/plus_plugins/commit/f78f32c47fef8045f34944899f6082303182b615))
+
+## 11.3.3
+
+ - **FIX**(device_info_plus): handle nullability on getString(DEVICE_NAME) ([#3507](https://github.com/fluttercommunity/plus_plugins/issues/3507)). ([3201e056](https://github.com/fluttercommunity/plus_plugins/commit/3201e056b2a44ce74a3a9218fba59d71d9795379))
+
+## 11.3.2
+
+**Note:** This release bumps dependency `win32_registry` from `1.1.5` to `2.0.1`. It will not compile if you have Dependency Overrides for that package.
+
+ - **FIX**(device_info_plus): tighten dependency constraints ([#3497](https://github.com/fluttercommunity/plus_plugins/issues/3497)). ([c7e2428a](https://github.com/fluttercommunity/plus_plugins/commit/c7e2428a6075df4e37da9ef4934861c7cb0c3bee))
+ - **FIX**(device_info_plus): fix memory leak when calling DeviceInfoPlugin().macOsInfo ([#3474](https://github.com/fluttercommunity/plus_plugins/issues/3474)). ([1cbf2b56](https://github.com/fluttercommunity/plus_plugins/commit/1cbf2b5621465456221b50ade7ac6c2f3266788d))
+
+## 11.3.1
+
+- Retracted release due to [#3496](https://github.com/fluttercommunity/plus_plugins/issues/3496)
+
 ## 11.3.0
 
  - **FEAT**(device_info_plus): Add User Device Name in Android (PR [#3437](https://github.com/fluttercommunity/plus_plugins/issues/3437)) ([#3456](https://github.com/fluttercommunity/plus_plugins/issues/3456)). ([8c38a31d](https://github.com/fluttercommunity/plus_plugins/commit/8c38a31d7c1073d7011ec3e3193f6b99b3851ef1))
