@@ -66,7 +66,7 @@ internal class Share(
         val paths = (arguments["paths"] as List<*>?)?.filterIsInstance<String>()
         val mimeTypes = (arguments["mimeTypes"] as List<*>?)?.filterIsInstance<String>()
         val fileUris = paths?.let { getUrisForPaths(paths) }
-
+        val packageName = arguments["packageName"] as String?
         // Create Share Intent
         val shareIntent = Intent()
         if (fileUris == null) {
@@ -115,8 +115,8 @@ internal class Share(
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         }
-        if (defaultPackage != null) {
-            shareIntent.setPackage(defaultPackage)
+        if (packageName != null) {
+            shareIntent.setPackage(packageName)
         }
         // Create the chooser intent
         val chooserIntent =
