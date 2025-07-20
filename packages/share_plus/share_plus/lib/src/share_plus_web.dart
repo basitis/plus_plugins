@@ -77,6 +77,7 @@ class SharePlusWebPlugin extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     final ShareData data;
     if (subject != null && subject.isNotEmpty) {
@@ -161,6 +162,7 @@ class SharePlusWebPlugin extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+    String? packageName,
   }) async {
     assert(
         fileNameOverrides == null || files.length == fileNameOverrides.length);

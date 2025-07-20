@@ -49,11 +49,13 @@ class MethodChannelShare extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     assert(text.isNotEmpty);
     final params = <String, dynamic>{
       'text': text,
       'subject': subject,
+      'packageName': packageName
     };
 
     if (sharePositionOrigin != null) {
@@ -77,6 +79,7 @@ class MethodChannelShare extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+    String? packageName,
   }) async {
     assert(files.isNotEmpty);
     assert(
@@ -101,6 +104,7 @@ class MethodChannelShare extends SharePlatform {
 
     if (subject != null) params['subject'] = subject;
     if (text != null) params['text'] = text;
+    if (packageName != null) params['packageName'] = packageName;
 
     if (sharePositionOrigin != null) {
       params['originX'] = sharePositionOrigin.left;

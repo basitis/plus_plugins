@@ -35,6 +35,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
+    String? packageName,
   }) async {
     final queryParameters = {
       if (subject != null) 'subject': subject,
@@ -69,6 +70,7 @@ class SharePlusLinuxPlugin extends SharePlatform {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
+    String? packageName,
   }) {
     throw UnimplementedError(
       'shareXFiles() has not been implemented on Linux.',
