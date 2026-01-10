@@ -142,6 +142,15 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final List<CupertinoActivityType>? excludedCupertinoActivities;
 
+  /// Target a specific Android app package for sharing (Android only).
+  ///
+  /// When provided, the share will be directed to the specified app.
+  ///
+  /// Example: `'com.whatsapp'` to share directly to WhatsApp
+  ///
+  /// * Supported platforms: Android only
+  ///   Parameter ignored on other platforms.
+  final String? packageName;
   ShareParams({
     this.text,
     this.subject,
@@ -154,6 +163,7 @@ class ShareParams {
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
     this.excludedCupertinoActivities,
+    this.packageName,
   });
 }
 
