@@ -142,12 +142,6 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final List<CupertinoActivityType>? excludedCupertinoActivities;
 
-  /// Whether to share with specific package
-  ///
-  /// * Supported platforms: Android
-  ///   Parameter ignored on other platforms.
-  final String? packageName;
-
   ShareParams({
     this.text,
     this.subject,
@@ -160,7 +154,6 @@ class ShareParams {
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
     this.excludedCupertinoActivities,
-    this.packageName,
   });
 }
 

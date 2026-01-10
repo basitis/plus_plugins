@@ -182,7 +182,6 @@ class Share {
     String text, {
     String? subject,
     Rect? sharePositionOrigin,
-    String? packageName,
   }) async {
     assert(text.isNotEmpty);
     return SharePlus.instance.share(
@@ -191,7 +190,6 @@ class Share {
         subject: subject,
         sharePositionOrigin: sharePositionOrigin,
         downloadFallbackEnabled: downloadFallbackEnabled,
-        packageName: packageName,
       ),
     );
   }
@@ -231,7 +229,6 @@ class Share {
     String? text,
     Rect? sharePositionOrigin,
     List<String>? fileNameOverrides,
-    String? packageName,
   }) async {
     assert(files.isNotEmpty);
     return SharePlus.instance.share(
@@ -242,7 +239,6 @@ class Share {
         sharePositionOrigin: sharePositionOrigin,
         fileNameOverrides: fileNameOverrides,
         downloadFallbackEnabled: downloadFallbackEnabled,
-        packageName: packageName,
       ),
     );
   }
