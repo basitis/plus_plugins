@@ -10,7 +10,7 @@ A Flutter plugin to access various information about the battery of the device t
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅   |
 
@@ -18,12 +18,12 @@ A Flutter plugin to access various information about the battery of the device t
 
 - Flutter >=3.22.0
 - Dart >=3.4.0 <4.0.0
-- iOS >=12.0
-- MacOS >=10.14
-- Android `compileSDK` 34
+- iOS >=13.0
+- macOS >=10.15
 - Java 17
-- Android Gradle Plugin >=8.3.0
-- Gradle wrapper >=8.4
+- Kotlin 2.2.0
+- Android Gradle Plugin >=8.12.1
+- Gradle wrapper >=8.13
 
 ## Usage
 
@@ -47,7 +47,7 @@ battery.onBatteryStateChanged.listen((BatteryState state) {
 });
 
 // Check if device in battery save mode
-// Currently available on Android, iOS, MacOS and Windows platforms only
+// Currently available on Android, iOS, macOS and Windows platforms only
 print(await battery.isInBatterySaveMode);
 ```
 

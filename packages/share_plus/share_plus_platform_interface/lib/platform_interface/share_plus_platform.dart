@@ -76,8 +76,11 @@ class ShareParams {
   final XFile? previewThumbnail;
 
   /// The optional [sharePositionOrigin] parameter can be used to specify a global
-  /// origin rect for the share sheet to popover from on iPads and Macs. It has no effect
-  /// on other devices.
+  /// origin rect to anchor the share sheet to a widget user interacts with on iPads and Macs.
+  /// It has no effect on other devices.
+  ///
+  /// If this parameter not provided on iPads the popover anchors to the center of the screen
+  /// instead of throwing. Providing an accurate rect is still recommended for better UX.
   ///
   /// * Supported platforms: iPad and Mac
   ///   Parameter ignored on other platforms.
@@ -142,6 +145,15 @@ class ShareParams {
   ///   Parameter ignored on other platforms.
   final List<CupertinoActivityType>? excludedCupertinoActivities;
 
+  /// Target a specific Android app package for sharing (Android only).
+  ///
+  /// When provided, the share will be directed to the specified app.
+  ///
+  /// Example: `'com.whatsapp'` to share directly to WhatsApp
+  ///
+  /// * Supported platforms: Android only
+  ///   Parameter ignored on other platforms.
+  final String? packageName;
   ShareParams({
     this.text,
     this.subject,
@@ -154,6 +166,7 @@ class ShareParams {
     this.downloadFallbackEnabled = true,
     this.mailToFallbackEnabled = true,
     this.excludedCupertinoActivities,
+    this.packageName,
   });
 }
 

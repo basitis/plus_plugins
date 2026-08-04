@@ -102,48 +102,6 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
   return [result copy];
 }
 
-// We need the companion to avoid ARC deadlock
-@interface UIActivityViewSuccessCompanion : NSObject
-
-@property FlutterResult result;
-@property NSString *activityType;
-@property BOOL completed;
-
-- (id)initWithResult:(FlutterResult)result;
-
-@end
-
-@implementation UIActivityViewSuccessCompanion
-
-- (id)initWithResult:(FlutterResult)result {
-  if (self = [super init]) {
-    self.result = result;
-    self.completed = false;
-  }
-  return self;
-}
-
-// We use dealloc as the share-sheet might disappear (e.g. iCloud photo album
-// creation) and could then reappear if the user cancels
-- (void)dealloc {
-  if (self.completed) {
-    self.result(self.activityType);
-  } else {
-    self.result(@"");
-  }
-}
-
-@end
-
-@interface UIActivityViewSuccessController : UIActivityViewController
-
-@property UIActivityViewSuccessCompanion *companion;
-
-@end
-
-@implementation UIActivityViewSuccessController
-@end
-
 @interface SharePlusData : NSObject <UIActivityItemSource>
 
 @property(readonly, nonatomic, copy) NSString *subject;
@@ -317,7 +275,8 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
     NSNumber *originY = arguments[@"originY"];
     NSNumber *originWidth = arguments[@"originWidth"];
     NSNumber *originHeight = arguments[@"originHeight"];
-    NSArray *excludedActivityTypeStrings = arguments[@"excludedCupertinoActivities"];
+    NSArray *excludedActivityTypeStrings =
+        arguments[@"excludedCupertinoActivities"];
     NSArray<UIActivityType> *excludedActivityTypes =
         activityTypesForStrings(excludedActivityTypeStrings);
 
@@ -418,14 +377,14 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
                       withSubject:shareTitle
                          withText:shareText
             excludedActivityTypes:excludedActivityTypes
-                   withController:rootViewController
+                   withController:topViewController
                          atSource:originRect
                          toResult:result];
       } else if (shareText) {
         [self shareText:shareText
                           subject:shareTitle
             excludedActivityTypes:excludedActivityTypes
-                   withController:rootViewController
+                   withController:topViewController
                          atSource:originRect
                          toResult:result];
       } else {
@@ -445,9 +404,9 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
            withController:(UIViewController *)controller
                  atSource:(CGRect)origin
                  toResult:(FlutterResult)result {
-  UIActivityViewSuccessController *activityViewController =
-      [[UIActivityViewSuccessController alloc] initWithActivityItems:shareItems
-                                               applicationActivities:nil];
+  UIActivityViewController *activityViewController =
+      [[UIActivityViewController alloc] initWithActivityItems:shareItems
+                                        applicationActivities:nil];
 
   activityViewController.excludedActivityTypes = excludedActivityTypes;
 
@@ -458,39 +417,43 @@ activityTypesForStrings(NSArray<NSString *> *activityTypeStrings) {
 
   activityViewController.popoverPresentationController.sourceView =
       controller.view;
-  BOOL isCoordinateSpaceOfSourceView =
-      CGRectContainsRect(controller.view.frame, origin);
 
-  // If device is e.g. an iPad then hasPopoverPresentationController is true
-  BOOL hasPopoverPresentationController =
-      [activityViewController popoverPresentationController] != NULL;
-  if (hasPopoverPresentationController &&
-      (!isCoordinateSpaceOfSourceView || CGRectIsEmpty(origin))) {
-    NSString *sharePositionIssue = [NSString
-        stringWithFormat:
-            @"sharePositionOrigin: argument must be set, %@ must be non-zero "
-            @"and within coordinate space of source view: %@",
-            NSStringFromCGRect(origin),
-            NSStringFromCGRect(controller.view.bounds)];
+  // Check if this is actually an iPad
+  BOOL isIpad = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 
-    result([FlutterError errorWithCode:@"error"
-                               message:sharePositionIssue
-                               details:nil]);
-    return;
-  }
+  // Before Xcode 26 hasPopoverPresentationController is true for iPads and false for iPhones.
+  // Since Xcode 26 it is true for both iPads and iPhones, so we only configure popover on iPad.
+  UIPopoverPresentationController *popover =
+      activityViewController.popoverPresentationController;
+  BOOL hasPopoverPresentationController = (popover != NULL);
 
-  if (!CGRectIsEmpty(origin)) {
+  CGRect sourceRect = origin;
+  if (isIpad && hasPopoverPresentationController) {
+    // Flutter sends sharePositionOrigin in global (window) coordinates.
+    // Convert to the source view's coordinate space for sourceRect.
+    if (controller.view.window && !CGRectIsEmpty(origin)) {
+      sourceRect = [controller.view convertRect:origin fromView:nil];
+    }
+    // On iPad, popover requires a non-empty sourceRect. Use center of the view
+    // when no valid origin was provided or conversion isn't possible.
+    if (CGRectIsEmpty(sourceRect)) {
+      CGRect bounds = controller.view.bounds;
+      sourceRect = CGRectMake(CGRectGetMidX(bounds) - 1.0,
+                              CGRectGetMidY(bounds) - 1.0, 2.0, 2.0);
+    }
+    popover.sourceRect = sourceRect;
+  } else if (!CGRectIsEmpty(origin)) {
     activityViewController.popoverPresentationController.sourceRect = origin;
   }
 
-  UIActivityViewSuccessCompanion *companion =
-      [[UIActivityViewSuccessCompanion alloc] initWithResult:result];
-  activityViewController.companion = companion;
   activityViewController.completionWithItemsHandler =
       ^(UIActivityType activityType, BOOL completed, NSArray *returnedItems,
         NSError *activityError) {
-        companion.activityType = activityType;
-        companion.completed = completed;
+        if (completed) {
+          result(activityType);
+        } else {
+          result(@"");
+        }
       };
 
   [controller presentViewController:activityViewController

@@ -1,3 +1,31 @@
+## 7.1.1
+
+ - **FIX**(battery_plus): raise Apple platform minimums in SPM manifests to match FlutterFramework ([#3919](https://github.com/fluttercommunity/plus_plugins/issues/3919)). ([e7275a38](https://github.com/fluttercommunity/plus_plugins/commit/e7275a3881023a5f96cd83c8ad55da83d2dceafb))
+ - **DOCS**(battery_plus): Update min iOS and MacOS in README ([#3927](https://github.com/fluttercommunity/plus_plugins/issues/3927)). ([2ea120cc](https://github.com/fluttercommunity/plus_plugins/commit/2ea120cc35fa599d26abbd36fd0aa6e514e45a52))
+
+## 7.1.0
+
+ - **REFACTOR**(battery_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3906](https://github.com/fluttercommunity/plus_plugins/issues/3906)). ([104df18a](https://github.com/fluttercommunity/plus_plugins/commit/104df18a36432b81ec808cdfb85e01e7c2781d34))
+ - **FEAT**(battery_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3909](https://github.com/fluttercommunity/plus_plugins/issues/3909)). ([a9409774](https://github.com/fluttercommunity/plus_plugins/commit/a9409774cecd00a595cbf6eb49980416e38a0415))
+ - **FEAT**(battery_plus): Add support of built-in Kotlin ([#3901](https://github.com/fluttercommunity/plus_plugins/issues/3901)). ([93d366dd](https://github.com/fluttercommunity/plus_plugins/commit/93d366dd439a7d7c801d82b055653ba222e7f984))
+
+## 7.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **DOCS**(all): replace MacOS by macOS in package READMEs ([#3658](https://github.com/fluttercommunity/plus_plugins/issues/3658)). ([72b6234c](https://github.com/fluttercommunity/plus_plugins/commit/72b6234c25315c30d8efc9f15a9258b0bb7273a8))
+ - **BREAKING** **FEAT**(battery_plus): Change Android compile SDK, update Android build config ([#3666](https://github.com/fluttercommunity/plus_plugins/issues/3666)). ([c2fe29ab](https://github.com/fluttercommunity/plus_plugins/commit/c2fe29ab224d1fca33905fe57110aee106da55e4))
+
+## 6.2.3
+
+ - **FIX**(battery_plus): Do not call hidden flag on Samsung with Android versions >= 12 ([#3641](https://github.com/fluttercommunity/plus_plugins/issues/3641)). ([a8764705](https://github.com/fluttercommunity/plus_plugins/commit/a87647056529ef88d319d9a27c75744c9db9ff53))
+ - **FIX**(battery_plus): batteryMonitoringEnabled should be set false when cancel on iOS ([#3634](https://github.com/fluttercommunity/plus_plugins/issues/3634)). ([9597aab6](https://github.com/fluttercommunity/plus_plugins/commit/9597aab680cc8d9768bca9e491705c60ad302b34))
+
 ## 6.2.2
 
  - **FIX**(battery_plus): Improve battery save mode check on Xiaomi devices ([#3555](https://github.com/fluttercommunity/plus_plugins/issues/3555)). ([32ba69ba](https://github.com/fluttercommunity/plus_plugins/commit/32ba69bafc6cc787eeb8e9df58eb572d22f4d42d))

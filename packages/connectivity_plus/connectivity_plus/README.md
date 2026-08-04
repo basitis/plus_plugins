@@ -16,7 +16,7 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 
 ## Platform Support
 
-| Android | iOS | MacOS | Web | Linux | Windows |
+| Android | iOS | macOS | Web | Linux | Windows |
 | :-----: | :-: | :---: | :-: | :---: | :-----: |
 |   ✅    | ✅  |  ✅   | ✅  |  ✅   |   ✅    |
 
@@ -24,12 +24,12 @@ This plugin allows Flutter apps to discover network connectivity types that can 
 
 - Flutter >=3.19.0
 - Dart >=3.3.0 <4.0.0
-- iOS >=12.0
-- MacOS >=10.14
-- Android `compileSDK` 34
+- iOS >=13.0
+- macOS >=10.15
 - Java 17
-- Android Gradle Plugin >=8.3.0
-- Gradle wrapper >=8.4
+- Android Gradle Plugin >=8.12.1
+- Gradle wrapper >=8.13
+- Xcode >= 26.1.1
 
 ## Usage
 
@@ -39,6 +39,11 @@ Sample usage to check currently available connection types:
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+
+// Determines whether any active network connection exists.
+if (connectivityResult.hasConnectivity) {
+  // Connectivity available (regardless of the underlying transport).
+}
 
 // This condition is for demo purposes only to explain every connection type.
 // Use conditions which work for your requirements.
@@ -57,6 +62,8 @@ if (connectivityResult.contains(ConnectivityResult.mobile)) {
   // It returns [other] on any device (also simulator)
 } else if (connectivityResult.contains(ConnectivityResult.bluetooth)) {
   // Bluetooth connection available.
+} else if (connectivityResult.contains(ConnectivityResult.satellite)) {
+  // Carrier-provided satellite network available
 } else if (connectivityResult.contains(ConnectivityResult.other)) {
   // Connected to a network which is not in the above mentioned networks.
 } else if (connectivityResult.contains(ConnectivityResult.none)) {
@@ -71,48 +78,58 @@ This method should ensure emitting only distinct values.
 
 ```dart
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:async';
 
-@override
-initState() {
-  super.initState();
-
-  StreamSubscription<List<ConnectivityResult>> subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
-    // Received changes in available connectivity types!
-  });
+class MyWidget extends StatefulWidget {
+  @override
+  _MyWidgetState createState() => _MyWidgetState();
 }
 
-// Be sure to cancel subscription after you are done
-@override
-dispose() {
-  subscription.cancel();
-  super.dispose();
+class _MyWidgetState extends State<MyWidget> {
+  StreamSubscription<List<ConnectivityResult>>? subscription;
+
+  @override
+  void initState() {
+    super.initState();
+
+    subscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> result) {
+      // Received changes in available connectivity types!
+    });
+  }
+
+  // Be sure to cancel subscription after you are done
+  @override
+  void dispose() {
+    subscription?.cancel();
+    super.dispose();
+  }
 }
 ```
 
-## Platform Support
+## Supported ConnectivityResult values per platform
 
-The following table shows which `ConnectivityResult` values are supported per platform.
+The following table shows which `ConnectivityResult` values can be returned on every of supported platforms.
 
-|           | Android | iOS | Web | MacOS | Windows | Linux |
+|           | Android | iOS | Web | macOS | Windows | Linux |
 |-----------|:-------:|:---:|:---:|:-----:|:-------:|:-----:|
 | wifi      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | bluetooth | :white_check_mark: |                    |                    |                    |                    | :white_check_mark: |
 | ethernet  | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | mobile    | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: |                    |                    |
 | vpn       | :white_check_mark: |                    |                    |                    | :white_check_mark: | :white_check_mark: |
+| satellite | :white_check_mark: | :white_check_mark: |                    |                    |                    |                    |
 | other     | :white_check_mark: | :white_check_mark: |                    | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-
-_`none` is supported on all platforms by default._
+| none      | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 
 ### Android
 
 Connectivity changes are no longer communicated to Android apps in the background starting with Android O (8.0). You should always check for connectivity status when your app is resumed. The broadcast is only useful when your application is in the foreground.
 
-### iOS & MacOS
+### iOS & macOS
 
 On iOS simulators, the connectivity types stream might not update when Wi-Fi status changes. This is a known issue.
 
-Starting with iOS 12 and MacOS 10.14, the implementation uses `NWPathMonitor` to obtain the enabled connectivity types. We noticed that this observer can give multiple or unreliable results. For example, reporting connectivity "none" followed by connectivity "wifi" right after reconnecting.
+Starting with iOS 12 and macOS 10.14, the implementation uses `NWPathMonitor` to obtain the enabled connectivity types. We noticed that this observer can give multiple or unreliable results. For example, reporting connectivity "none" followed by connectivity "wifi" right after reconnecting.
 
 We recommend to use the `onConnectivityChanged` with this limitation in mind, as the method doesn't filter events, nor it ensures distinct values.
 

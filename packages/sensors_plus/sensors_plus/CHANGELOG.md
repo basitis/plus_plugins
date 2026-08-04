@@ -1,3 +1,27 @@
+## 7.1.0
+
+ - **REFACTOR**(sensors_plus): Migrate from Groovy to Kotlin DSL in Android part ([#3905](https://github.com/fluttercommunity/plus_plugins/issues/3905)). ([4fe91963](https://github.com/fluttercommunity/plus_plugins/commit/4fe91963f4bee70e3d58eee4fc116f20ed0eff76))
+ - **FIX**(sensors_plus): Resolve incorrect cleanup method call ([#3898](https://github.com/fluttercommunity/plus_plugins/issues/3898)). ([29195a9d](https://github.com/fluttercommunity/plus_plugins/commit/29195a9d2b37a49da082696de3823f4c03d5ab38))
+ - **FIX**(sensors_plus): resolve lint issues found during melos analyze ([#3845](https://github.com/fluttercommunity/plus_plugins/issues/3845)). ([c6511c08](https://github.com/fluttercommunity/plus_plugins/commit/c6511c087f2b49ec1b64a1f9906a990085066531))
+ - **FEAT**(sensors_plus): Add support of built-in Kotlin ([#3902](https://github.com/fluttercommunity/plus_plugins/issues/3902)). ([bc7a6a0f](https://github.com/fluttercommunity/plus_plugins/commit/bc7a6a0fcfb1bad2ffed7780a8e04bb6080fba82))
+ - **FEAT**(sensors_plus): Updated Swift Package Manager setup for Flutter 3.44 ([#3892](https://github.com/fluttercommunity/plus_plugins/issues/3892)). ([f2846468](https://github.com/fluttercommunity/plus_plugins/commit/f28464683773ba57fb9de0681a2bbe72c3eb54a0))
+
+## 7.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **DOCS**(all): replace MacOS by macOS in package READMEs ([#3658](https://github.com/fluttercommunity/plus_plugins/issues/3658)). ([72b6234c](https://github.com/fluttercommunity/plus_plugins/commit/72b6234c25315c30d8efc9f15a9258b0bb7273a8))
+ - **BREAKING** **FEAT**(sensors_plus): Change Android compile SDK, update Android build config ([#3670](https://github.com/fluttercommunity/plus_plugins/issues/3670)). ([ad32fae5](https://github.com/fluttercommunity/plus_plugins/commit/ad32fae515a61a7d251b574b96b3a707f7cfacaf))
+
+## 6.1.2
+
+ - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))
+
 ## 6.1.1
 
  - **REFACTOR**(all): Use range of flutter_lints for broader compatibility ([#3371](https://github.com/fluttercommunity/plus_plugins/issues/3371)). ([8a303add](https://github.com/fluttercommunity/plus_plugins/commit/8a303add3dee1acb8bac5838246490ed8a0fe408))

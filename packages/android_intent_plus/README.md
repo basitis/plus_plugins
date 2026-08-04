@@ -18,10 +18,10 @@ This plugin allows Flutter apps to launch arbitrary intents when the platform is
 
 - Flutter >=3.12.0
 - Dart >=3.1.0 <4.0.0
-- Android `compileSDK` 34
 - Java 17
-- Android Gradle Plugin >=8.3.0
-- Gradle wrapper >=8.4
+- Kotlin 2.2.0
+- Android Gradle Plugin >=8.13.0
+- Gradle wrapper >=8.14
 
 ## Usage
 
@@ -88,6 +88,8 @@ of integers or strings.
 or get the details of the activity that can handle the intent.
 
 ```dart
+import 'package:android_intent_plus/android_intent.dart';
+
 final intent = AndroidIntent(
       action: 'action_view',
       data: Uri.encodeFull('http://'),

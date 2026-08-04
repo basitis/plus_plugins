@@ -1,3 +1,23 @@
+## 6.1.0
+
+ - **FIX**(android_intent_plus): Suppress unchecked cast warnings in MethodCallHandlerImpl ([#3937](https://github.com/fluttercommunity/plus_plugins/issues/3937)). ([6b770776](https://github.com/fluttercommunity/plus_plugins/commit/6b770776a0ad2accbdc814e6177fa725f42de0ff))
+ - **FEAT**(android_intent_plus): Add support of built-in Kotlin ([#3936](https://github.com/fluttercommunity/plus_plugins/issues/3936)). ([62cb041f](https://github.com/fluttercommunity/plus_plugins/commit/62cb041f0bf14f6ffcb56588c5c42b0a4b12567e))
+
+## 6.0.0
+
+> Note: This release has breaking changes.
+>
+> On Android plugin now requires the following:
+> - Android Gradle Plugin >=8.12.1
+> - Gradle wrapper >=8.13
+> - Kotlin 2.2.0
+
+ - **BREAKING** **FEAT**(android_intent_plus): Change Android compile SDK, update Android build config ([#3673](https://github.com/fluttercommunity/plus_plugins/issues/3673)). ([7a228c3e](https://github.com/fluttercommunity/plus_plugins/commit/7a228c3e29e92ffba068422709136b55a05a0e33))
+
+## 5.3.1
+
+ - **DOCS**(all): improve documentation across multiple README files ([#3630](https://github.com/fluttercommunity/plus_plugins/issues/3630)). ([643e12df](https://github.com/fluttercommunity/plus_plugins/commit/643e12dfe0389dc21b49bd31ec03e7f38844d339))
+
 ## 5.3.0
 
  - **FIX**(android_intent_plus): adds error catching and forwarding ([#3452](https://github.com/fluttercommunity/plus_plugins/issues/3452)). ([37f533c7](https://github.com/fluttercommunity/plus_plugins/commit/37f533c7a6c16fc55ed743b78108b479fc2565c3))
